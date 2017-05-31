@@ -31,6 +31,16 @@ namespace 串口模板
         private void Form1_Load(object sender, EventArgs e)
         {
             serial.serialPort1.DataReceived += serial.serialPort1_DataReceived;
+            try
+            {
+                serial.serialPort1.PortName = Properties.Settings.Default.PortName;
+                serial.serialPort1.BaudRate = Convert.ToInt32(Properties.Settings.Default.BaudRate);
+                serial.serialPort1.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             t = new Thread(showtxt);
             t.Start();
         }
